@@ -1,0 +1,47 @@
+Learned:
+	1.	Fixture session runs once per execution
+	2.	Fixture module runs once per file
+	3.	If my tests are stored in multiple files with Test keyword, command to execute them all in one instance is "pytest -s"
+	4.	if i run my tests without -s it will not show the print statements in output
+	5.	fixture function runs once per function
+	6.	fixture class runs once per class
+	7.	fixture will be identified only when you use linkage
+
+
+    8. To execute any test using commandline use following command
+        - pytest Testfilename.py 
+
+    9. To execute any test function using commandline use the following command
+       - pytest Testfilename.py :: functionname
+
+    10. To skip any test 
+        @pytest.mark.skip
+
+    11. Concept of tagging -> to run only specific set of tags, tag them with one name and after that
+    you can execute them
+     eg : pytest.mark.smmoke 
+    
+    To execute them run with command as pytest -m tagname
+        - pytest -m smoke
+
+    12. For any pytest format start the file name as Test and function name as test_ keyword
+
+    13. Playwright has one global fixture called "playwright", which is already present in the playwright package and 
+    globally recognized by ide, that will be helping you out to launch browser
+
+
+  Get by label -> whenever you are identifying any label ensure it has label tag and the input should be wrapped inside
+  the label tag.
+  <Label> Password <input type = "Password" /> </Label>
+  Or the id of input should be associated with the for of the label's input box
+  if id of input and for attribute of label are same, get_label() method will work
+   Eg:     <label for="username"> Username: </label>
+           <input id="username" />
+  if id of input and for attribute of label are not same, get_label() method will not work
+    Eg :  <label for="email"> Email: </label>
+           <input id="userEmail" />
+
+  #restrictions -> getbyrole on div with no roles attached cant be used
+
+  CSS selectors
+to use css selector, use the method call locator and pass with id using #
