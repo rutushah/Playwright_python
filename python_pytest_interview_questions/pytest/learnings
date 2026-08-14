@@ -45,3 +45,8 @@ Learned:
 
   CSS selectors
 to use css selector, use the method call locator and pass with id using #
+
+In playwright request is the property that helps to make api calls,
+chromium is the property that calls chromium browser
+playwright.request.new_context("base url") -> pass base url in the new_context
+
