@@ -50,3 +50,45 @@ In playwright request is the property that helps to make api calls,
 chromium is the property that calls chromium browser
 playwright.request.new_context("base url") -> pass base url in the new_context
 
+Tokens in playwright for each login gets stored in Application -> local storage in the browser session.
+We can intercept to skip the multiple logins
+
+
+Best Practices for Framework design:
+1. Avoid hard-coding test data
+ - ensure that test data is injected from tests rather than being hard coded within
+ testmethods.
+ This enhances the generic code maintainability
+
+2. Externalize Test Data:
+
+Feed test data from external files to maintain isolation between the test logic and data sources. This practice supports easier maintenance and scalability.
+
+3. Implement Page Object Model (POM):
+
+Apply the Page Object Design Pattern to separate page locators and actions from test files. This improves code reusability, readability, and maintainability.
+
+4. Centralize Reusable Code:
+
+Use common utilities (utils.py) or configuration files (conf.py) to store reusable code across the framework. This avoids redundancy and promotes consistency.
+
+5. Define Global Environment variables:
+
+Use global configuration values to drive the execution using core parameters of the test without changing the code.
+
+6. Apply Grouping/Tags to run targeted tests
+7. Generate HTML Reports:
+
+Integrate HTML reporting tools to create detailed test execution reports. These reports help analyze overall test coverage, success rates, and failures.
+
+8. Capture Logs & Screenshots:
+
+Configure your framework to automatically generate logs and capture screenshots for failed test cases. This helps in debugging and analysis.
+
+9. CI/CD Integration with Jenkins:
+
+Integrate the framework with Continuous Integration/Continuous Deployment (CI/CD) tools like Jenkins. Automate and schedule nightly builds to run tests regularly and ensure consistent feedback loops.
+
+10. Integrate Cucumber BDD:
+
+Incorporate Cucumber for Behavior Driven Development (BDD) to write Gherkin syntax-based feature files. This improves test readability and collaboration with non-technical stakeholders.

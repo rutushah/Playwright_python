@@ -34,4 +34,3 @@ def test_order_details(playwright: Playwright):
     orderCreatedRow.get_by_role("button",name="View").click()
     expect(page.locator(".col-text")).to_contain_text(orderId)
     context.close()
-    
