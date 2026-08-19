@@ -1,11 +1,16 @@
 from playwright.sync_api import Playwright
 
+from conftest import user_credentials
+
+
 ordersPayload = {"orders": [{"country": "United States", "productOrderedId": "6960eac0c941646b7a8b3e68"}]}
-loginPayload = {"userEmail": "rutushah105@gmail.com", "userPassword": "Rutu@123"}
 
 
 class APIUtils:
-    def getToken(self, playwright: Playwright):
+    def getToken(self, playwright: Playwright,user_credentials):
+        userEmail = user_credentials['userEmail']
+        userPassword = user_credentials['password']
+        loginPayload = {"userEmail": userEmail, "userPassword": userPassword}
         api_request_context = playwright.request.new_context(base_url="https://rahulshettyacademy.com")
         response = api_request_context.post("api/ecom/auth/login",
                                  data=loginPayload,
@@ -19,8 +24,8 @@ class APIUtils:
         return responseBody["token"]
 
 
-    def createOrder(self, playwright: Playwright):
-        token = self.getToken(playwright)
+    def createOrder(self, playwright: Playwright,user_credentials):
+        token = self.getToken(playwright,user_credentials)
         api_request_context = playwright.request.new_context(base_url="https://rahulshettyacademy.com")
         response = api_request_context.post("/api/ecom/order/create-order",
                                             data=ordersPayload,
