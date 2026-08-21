@@ -2,12 +2,13 @@ import json
 
 import pytest
 
+from conftest import browserInstance
 from pageObjects.login import LoginPage
 import time
 
 from playwright.sync_api import Page, Playwright, expect
 
-from utils.apiBase import APIUtils
+from utils.apiFrameworkBase import APIUtils
 """
 To drive test data from external source like excel, json, etc
 These days most of the industry is using data from json file to drive test data.
@@ -23,23 +24,18 @@ with open('data/credentials.json') as json_file:
     test_data = json.load(json_file)
     print(test_data)
     user_credentials_list = test_data['user_credentials']
-
+@pytest.mark.smoke
 @pytest.mark.parametrize('user_credentials',user_credentials_list)
-def test_order_details(playwright: Playwright,user_credentials):
+def test_order_details(playwright: Playwright,browserInstance,user_credentials):
     userEmail = user_credentials['userEmail']
     userPassword = user_credentials['password']
-
-    browser = playwright.chromium.launch(headless=False)
-    context = browser.new_context()
-    page = context.new_page()
-
 
     #first create order
     apiUtils = APIUtils()
     orderId = apiUtils.createOrder(playwright,user_credentials)
 
     # object for login page class
-    loginPage = LoginPage(page)
+    loginPage = LoginPage(browserInstance)
     #then go to login page
     loginPage.navigate()
     dashboardPage = loginPage.login(userEmail, userPassword)
@@ -49,4 +45,3 @@ def test_order_details(playwright: Playwright,user_credentials):
     ordersHistoryPage = dashboardPage.selectOrdersNavLink()
     orderDetails = ordersHistoryPage.selectOrder(orderId)
     orderDetails.verifyOrderMessage(orderId)
-    context.close()
